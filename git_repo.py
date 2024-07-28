@@ -10,9 +10,12 @@ repository = 'ND_store'
 access_token = os.getenv('GIT_API')
 commit_message = 'Add file via Flask'
 
+print(f"my key:{access_token}")
+
 
 # Function to upload file content to GitHub
 def upload_to_github(file_content, file_name):
+    print(f"my key:{access_token}")
     print("Entered")
     base_url = f'https://api.github.com/repos/{username}/{repository}/contents/'
     headers = {'Authorization': f'token {access_token}'}
