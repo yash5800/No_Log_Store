@@ -1,13 +1,15 @@
 import requests
 import json
 import base64
-import os
+encoded_string = "Z2l0aHViX3BhdF8xMUEzQklQU1kwcUh5b3pWUmprYThZX3BFaGl0WlFTaVhwN3FOOERLbjgxbUVwYzdLdG92VFZQN083eUM1dHRRMWhTWVFBUFZLTkF6UmVUaDc5"
+decoded_bytes = base64.b64decode(encoded_string)
+decoded_string = decoded_bytes.decode('utf-8')
 
 
 # Replace with your GitHub username, repository name, and access token
 username = 'yash5800'
 repository = 'ND_store'
-access_token = os.getenv('GIT_API')
+access_token = decoded_string
 commit_message = 'Add file via Flask'
 
 print(f"my key:{access_token}")
