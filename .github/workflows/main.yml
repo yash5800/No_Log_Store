@@ -22,6 +22,6 @@ jobs:
 
     - name: Run Python script
       env:
-        MY_SECRET_KEY: ${{ secrets.Git_API }}
+        MY_SECRET_KEY: ${{ secrets.GIT_API }}
       run: |
         python git_repo.py
