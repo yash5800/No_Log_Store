@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Dimension</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='key.css') }}" >
+
+</head>
+<body>
+    <center>
+        <img src="{{ url_for('static',filename='images/pic1.jpg')}}">
+        <div class="key">
+        <h3>Enter Unique Key</h3>
+        <form action="./check_shit" method="post">
+            <input type="text" name="key" id="key" placeholder="Enter Unique Key" required><br>
+            <button type="submit" id="but" name="but">Submit</button>
+        </form>
+    </div>
+    </center>
+</body>
+</html>

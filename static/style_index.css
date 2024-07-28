@@ -1,0 +1,103 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #333;
+}
+.top{
+    display: flex;
+    width: 100%;
+}
+h3{
+    text-align: left;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 10px;
+    padding: 10px;
+}
+img{
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 20em;
+    border: 2px solid black;
+    box-shadow: 4px 4px 10px 1px rgb(0, 0, 0, 0.7),
+                -4px -4px 10px 1px rgb(255, 255, 255,0.5);
+    transition: all 1s;
+    }
+img:hover{
+    width: 55px;
+    height: 55px;
+    box-shadow: 6px 6px 10px 1px rgb(0, 0, 0, 0.7),
+                -6px -6px 10px 1px rgb(255, 255, 255,0.5);
+}
+.up{
+    position: relative;
+    background: #aa00ff97;
+    width: 300px;
+    height: 250px;
+    justify-content: center;
+    border-radius: 10px;
+    top: 8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+}
+.up h2{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin: 0;
+}
+.up #file{
+    padding: 10px;
+    margin: 10px 0 0 10px;
+}
+.up button{
+    background: aqua;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.up button:hover{
+    transform: scale(1.1);
+}
+.urls{
+    position: relative;
+    top: 13em;
+    background: transparent;
+    width:350px ;
+    height: 400px;
+    scrollbar-width: none;
+}
+.url{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    background: aqua;
+    margin: 10px 0;
+    border-radius: 10px;
+    padding: 10px;
+}
+.url h4{
+    position: relative;
+    padding: 10px;
+       }
+.url button{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background: rgb(6, 255, 6);
+}
+.url button:hover{
+    transform: scale(1.1);
+}
