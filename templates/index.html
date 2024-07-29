@@ -25,7 +25,10 @@
             {% for url in data %}
                 <div class="url">
                     <h4>File Name:<br> {{ url }}</h4>
-                    <a href="https://github.com/yash5800/ND_store/raw/main/{{ url }}" target="_blank" download><button>Download</button></a>
+                    <form action="/download" method="POST">   
+                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
+                        <button >Download</button>
+                    </form>
                 </div>
             {% endfor %}
         {% else %}
