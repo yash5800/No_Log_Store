@@ -1,10 +1,11 @@
 from flask import Flask,render_template,url_for,request,g,redirect,session
 from git_repo import upload_to_github
 from sql_operations import *
+import os
 
 app = Flask(__name__)
 
-app.secret_key = "1101"
+app.secret_key = os.getenv('KEY')
 
 @app.route('/')
 def main():
