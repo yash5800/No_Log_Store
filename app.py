@@ -52,7 +52,32 @@ def upload_file():
             return render_template('index.html', status='uploaded', user=session['username'], data=retrive(session['username']))
         else:
             return render_template('index.html', status='Not uploaded/File Name Already exists', user=session['username'], data=retrive(session['username']))
+@app.route('/download' , methods=['GET', 'POST'])
+def download_file():
+      file_name = request.form["file_name"]
+      print("entered to download file : ", file_name)
+      file_url = f"https://raw.githubusercontent.com/{ os.getenv["user"] }/{ os.getenv["repo"] }e/master/{file_name}"
+      try:
+            response = requests.get(file_url)
+            response.raise_for_status()  # Ensure we notice bad responses
+            
+            # Extract filename from URL or provide a default name
+            filename = os.path.basename(file_url)
+            
+            # Determine MIME type based on file extension
+            mime_type, _ = mimetypes.guess_type(filename)
+            if mime_type is None:
+                mime_type = 'application/octet-stream'  # Default MIME type
+            
+            file_content = BytesIO(response.content)
+            return send_file(file_content, mimetype=mime_type, as_attachment=True, download_name=filename)
+        
+      except requests.RequestException as e:
+           print(f"Error fetching file: {e}")
+           return render_template('index.html', status='Unable to Download', user=session['username'], data=retrive(session['username']))
 
+
+  
 
  
 if __name__ == '__main__':
