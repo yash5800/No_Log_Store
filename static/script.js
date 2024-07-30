@@ -1,7 +1,7 @@
 const text = document.querySelector(".span1");
 const load = () => {
              setTimeout(() =>{
-              text.textContent = "Dark Say!";
+              text.textContent = "Dark Say's!";
             },0);
             setTimeout(() =>{
                 text.textContent = "Don't Forget key!";
