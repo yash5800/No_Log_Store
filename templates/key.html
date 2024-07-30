@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Next Dimension</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='key.css') }}" >
-
 </head>
 <body>
     <center>
-        <img src="{{ url_for('static',filename='images/pic1.jpg')}}">
+        <div class="top">
+          <img src="{{ url_for('static',filename='images/pic1.jpg')}}">
+          <span class="span1" ></span>
+        </div>
         <div class="key">
         <h3>Enter Unique Key</h3>
         <form action="./check_shit" method="post">
@@ -18,5 +20,20 @@
         </form>
     </div>
     </center>
+    <script>
+        const text = document.querySelector(".span1");
+
+        const load = () => {
+             setTimeout(() =>{
+              text.textContent = "Dark Say!";
+            },0);
+            setTimeout(() =>{
+                text.textContent = "Don't Forget key!";
+              },5000);
+          
+        }
+
+        setInterval(load, 5000);
+    </script>
 </body>
 </html>
