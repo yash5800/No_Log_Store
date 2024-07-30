@@ -1,5 +1,6 @@
 import mysql.connector
 import sys
+import os
 
 
 
@@ -7,10 +8,10 @@ import sys
 
 def insert(user,url):
     conn = mysql.connector.connect(
-        host='bqtc5ra1i2avhkkayhpf-mysql.services.clever-cloud.com',
-        user='u3tjxkmmopqlgm1d',
-        password='DGkarqoI3rPVKmO3C1Z2',
-        database='bqtc5ra1i2avhkkayhpf'
+        host = os.getenv('db_host'),
+        user = os.getenv('db_user'),
+        password = os.getenv('db_pwd'),
+        database = os.getenv('db_name')
     )
     
     if conn.is_connected():
