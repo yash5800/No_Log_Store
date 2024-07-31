@@ -5,8 +5,8 @@ import os
 
 
 # Replace with your GitHub username, repository name, and access token
-username = os.getenv('user')
-repository = os.getenv('repo')
+username = os.getenv('USER')
+repository = os.getenv('REPO')
 access_token = os.getenv('MY_API')
 commit_message = 'Add file via Flask'
 
