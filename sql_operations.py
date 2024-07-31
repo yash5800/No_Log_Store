@@ -8,10 +8,10 @@ import os
 
 def insert(user,url):
     conn = mysql.connector.connect(
-        host = os.getenv('db_host'),
-        user = os.getenv('db_user'),
-        password = os.getenv('db_pwd'),
-        database = os.getenv('db_name')
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PWD'),
+        database = os.getenv('DB_NAME')
     )
     
     if conn.is_connected():
