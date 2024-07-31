@@ -9,8 +9,8 @@ import requests
 app = Flask(__name__)
 
 app.secret_key = os.getenv('KEY')
-user = os.getenv("user")
-repo = os.getenv("repo")
+user = os.getenv("USER")
+repo = os.getenv("REPO")
 
 @app.route('/')
 def main():
