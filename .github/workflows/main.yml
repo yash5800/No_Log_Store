@@ -13,7 +13,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'  # Specify the desired Python version
 
       - name: Install dependencies
         run: |
@@ -22,13 +22,13 @@ jobs:
 
       - name: Run script
         env:
-          DB_NAME: ${{ DB_NAME }}
-          DB_USER: ${{ DB_USER }}
-          DB_HOST: ${{ DB_HOST }}
-          DB_PWD: ${{ DB_PWD }}
-          USER: ${{ USER }}
-          REPO: ${{ REPO }}
-          MY_API: ${{ MY_API }}
-          KEY: ${{ KEY }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PWD: ${{ secrets.DB_PWD }}
+          USER: ${{ secrets.USER }}
+          REPO: ${{ secrets.REPO }}
+          MY_API: ${{ secrets.MY_API }}
+          KEY: ${{ secrets.KEY }}
         run: |
           python app.py
