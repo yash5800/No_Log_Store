@@ -29,7 +29,11 @@
                     <h4>File Name:<br> {{ url }}</h4>
                     <form action="/download" method="POST">   
                         <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
-                        <button >Download</button>
+                        <button id="down" >Download</button>
+                    </form>
+                    <form action="/fuck_off" method="POST">   
+                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
+                        <button id="remove" >Remove</button>
                     </form>
                 </div>
             {% endfor %}
