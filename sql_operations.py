@@ -102,5 +102,30 @@ def delete(user):
     cursor.close()
     conn.close()
 
+def delete_file(user,file_name):
+    conn = mysql.connector.connect(
+        host='bqtc5ra1i2avhkkayhpf-mysql.services.clever-cloud.com',
+        user='u3tjxkmmopqlgm1d',
+        password='DGkarqoI3rPVKmO3C1Z2',
+        database='bqtc5ra1i2avhkkayhpf'
+    )
+    cursor = conn.cursor()
+    
+    print(user,file_name)
+    
+    if conn.is_connected():
+            print("Connection to MySQL DB successful")
+    
+    else:
+      return False
+    
+    cursor.execute('''DELETE FROM users WHERE user = %s and url = %s''', (user,file_name))
+
+    conn.commit()
+    
+    cursor.close()
+    conn.close()
+    
+    return True
 
 
