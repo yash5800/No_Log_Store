@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Dark ☢</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style_index.css') }}" >
-
 </head>
 <body>
+    
     <div class="top">
     <h3 >Welcome {{ user }}!</h3>
     <img src="{{ url_for('static',filename='images/pic1.jpg')}}">
     </div>
     <center>
+
     <h2 id="sta" style="color:green;" >{{ status }}</h2>
     <div class="up">
         <h2>Upload a File</h2>
@@ -39,6 +40,11 @@
     
     <script src="{{ url_for('static',filename='script.js')}}"></script>
 
+    <div class="blob"></div>
+
     </center>
+
+
+
 </body>
 </html>
