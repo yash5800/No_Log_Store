@@ -117,18 +117,25 @@ img:hover{
     background-clip: text;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.url button{
-    border: 1px solid black;
+.url #down,#remove{
+    border: 1px solid white;
     border-radius: 10px;
-    padding: 13px 20px;
-    color: black;
-    background: white;
+    padding: 10px 17px;
+    color: white;
+    background: black;
     transition: all .5s;
     margin: 15px;
 }
-.url button:hover{
+.url #down:hover{
     transform: scale(1.1);
-    background: linear-gradient(45deg,rgba(255, 255, 255, 0.2),rgb(6, 255, 6));
+    color: rgba(55, 247, 2);
+    border: 1px solid rgba(55, 247, 2);
+}
+
+.url #remove:hover{
+    transform: scale(1.1);
+    color: rgb(255, 0, 0);
+    border: 1px solid rgb(255, 0, 0);
 }
 
 .blob{
