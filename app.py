@@ -4,13 +4,10 @@ from sql_operations import *
 from io import BytesIO
 import mimetypes
 import os
-import requests
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv('KEY')
-user = os.getenv("USER")
-repo = os.getenv("REPO")
+app.secret_key = "1101"
 
 @app.route('/')
 def main():
@@ -46,9 +43,7 @@ def upload_file():
         file_content = file.read()
         file_name = file.filename
         success = upload_to_github(file_content, file_name)
-        
 
-        
         print("File upload success:", success)
        
         
@@ -57,12 +52,13 @@ def upload_file():
             return render_template('index.html', status='uploaded', user=session['username'], data=retrive(session['username']))
         else:
             return render_template('index.html', status='Not uploaded/File Name Already exists', user=session['username'], data=retrive(session['username']))
+
 @app.route('/download' , methods=['GET', 'POST'])
 def download_file():
-      file_name = request.form["file_name"]
-      print("entered to download file : ", file_name)
-      file_url = f"https://raw.githubusercontent.com/{ user }/{ repo }/master/{file_name}"
-      try:
+    file_name = request.form["file_name"]
+    print("entered to download file : ", file_name)
+    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+    try:
             response = requests.get(file_url)
             response.raise_for_status()  # Ensure we notice bad responses
             
@@ -77,12 +73,20 @@ def download_file():
             file_content = BytesIO(response.content)
             return send_file(file_content, mimetype=mime_type, as_attachment=True, download_name=filename)
         
-      except requests.RequestException as e:
-           print(f"Error fetching file: {e}")
-           return render_template('index.html', status='Unable to Download', user=session['username'], data=retrive(session['username']))
+    except requests.RequestException as e:
+        print(f"Error fetching file: {e}")
+        return render_template('index.html', status='Unable to Download', user=session['username'], data=retrive(session['username']))
 
-
-  
+@app.route('/fuck_off', methods=['GET', 'POST'])
+def fuck_off():
+    file_name = request.form["file_name"]
+    
+    result = delete_file(session['username'],file_name)
+    
+    if result:
+             return render_template('index.html', status='Removed', user=session['username'], data=retrive(session['username']))
+    
+    return render_template('index.html', status='Unable to Remove', user=session['username'], data=retrive(session['username']))
 
  
 if __name__ == '__main__':
