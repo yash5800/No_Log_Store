@@ -107,15 +107,15 @@ img:hover{
 .url h4{
     position: relative;
     padding: 10px;
-    max-height: 70px;
+    overflow: hidden;
     max-width: 150px;
-    overflow:auto;
-    scrollbar-width: none;
+    max-height: 100px;
     margin: 10px;
     background: linear-gradient(45deg,rgb(174, 11, 199),rgb(100, 13, 200));
     color: transparent;
     background-clip: text;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 0 0 5px rgb(174, 11, 199), 0 0 15px rgb(174, 11, 199);
 }
 .url #down,#remove{
     border: 1px solid white;
@@ -184,5 +184,90 @@ img:hover{
         border-top-left-radius: 20rem;
         border-top-right-radius: 20em;
     }
+}
+
+.loading{
+    position: relative;
+    height: 100px;
+    width: 250px;
+    margin-top: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.loading::after{
+    position: absolute;
+    content: '';
+    width: 110%;
+    height: 110%;
+    background: linear-gradient(45deg,blue,rgb(255, 0, 221));
+    z-index: -2;
+    animation: rot 5s linear infinite;
+    
+}
+.loading::before{
+    position: absolute;
+    content: '';
+    width: 98.8%;
+    height: 98%;
+    background: #333;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+@keyframes rot {
+    0%{
+        transform: rotate(0deg);
+    }
+    
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.loading svg circle{
+    stroke-opacity: 100%;
+    stroke-dasharray:0 ;
+    stroke-dashoffset:250;
+    animation: draw .5s linear infinite;
+}
+
+@keyframes draw {
+  0%{
+    filter: drop-shadow(0 0 1px rgba(255, 0, 238, 0.8));
+    stroke-opacity: 100%;
+  }
+  50%{
+    filter: drop-shadow(0 0 1px rgba(255, 0, 238, 0.5));
+    stroke-opacity: 60%;
+  }
+  100%{
+    filter: drop-shadow(0 0 1px rgba(255, 0, 238, 0.8));
+    stroke-opacity: 100%;
+  }
+}
+
+.loading svg path{
+    filter: drop-shadow(0 0 1px rgba(255, 0, 238, 0.7));
+    stroke-opacity: 100%;
+    stroke-dashoffset:250;
+    stroke-dasharray:250;
+    animation: fu 3s linear infinite;
+}
+
+@keyframes fu{
+      0%{
+        stroke-opacity: 100%;
+        stroke-dashoffset:250;
+      }
+      50%{
+        stroke-opacity: 40%;
+        stroke-dashoffset:0;
+      }
+      100%{
+        stroke-opacity: 100%;
+        stroke-dashoffset:250;
+      }
 }
 
