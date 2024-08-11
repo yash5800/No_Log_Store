@@ -93,16 +93,19 @@ def download_file():
 
 @app.route('/fuck_off', methods=['GET', 'POST'])
 def fuck_off():
-    global last_request_time
-    last_request_time = time.time()
-
     file_name = request.form["file_name"]
     result = delete_file(session['username'], file_name)
     
+    
     if result:
-        return render_template('index.html', status='Removed', user=session['username'], data=retrive(session['username']))
+        
+        result = delete_from_github(file_name)
+        
+        if result:
+            return render_template('index.html', status='Removed', user=session['username'], data=retrive(session['username']))
     
     return render_template('index.html', status='Unable to Remove', user=session['username'], data=retrive(session['username']))
+
 
 def self_ping():
     """Pings the main endpoint to keep the service alive."""
