@@ -12,7 +12,6 @@ const load = () => {
 
 setInterval(load, 5000);
 
-
 function cho(){
   document.getElementById("file").click();
 }
