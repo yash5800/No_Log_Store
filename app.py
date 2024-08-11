@@ -12,9 +12,9 @@ import secrets
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-# Track the last request time
+# Track the last request time and ping count
 last_request_time = time.time()
-count = 0
+ping_count = 0  # Initialize ping count
 
 @app.route('/')
 def main():
@@ -104,22 +104,25 @@ def fuck_off():
     
     return render_template('index.html', status='Unable to Remove', user=session['username'], data=retrive(session['username']))
 
-def call_myself_if_idle():
-    global last_request_time
-    global count
-    count += 1
-    current_time = time.time()
-    if current_time - last_request_time >= 840:  # 14 minutes = 840 seconds
-        with app.app_context():
-            requests.get('https://no-log-store.onrender.com/')  # Trigger the main endpoint
-            print(f"Self-called Number {count} due to inactivity ")
+def self_ping():
+    """Pings the main endpoint to keep the service alive."""
+    global ping_count
+    try:
+        response = requests.get('https://no-log-store.onrender.com/')
+        if response.status_code == 200:
+            ping_count += 1  # Increment the ping count
+            print(f"Self-ping successful. Ping Count: {ping_count}")
+        else:
+            print("Self-ping failed with status code:", response.status_code)
+    except requests.RequestException as e:
+        print(f"Error during self-ping: {e}")
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=call_myself_if_idle, trigger="interval", minutes=1)
+    scheduler.add_job(func=self_ping, trigger="interval", minutes=1)  # Adjust to less than 15 minutes
     scheduler.start()
 
     try:
-        app.run(debug=True)
+        app.run()
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
