@@ -23,3 +23,9 @@ document.getElementById("file").addEventListener("change",() =>{
   document.getElementById("sta").style.color = "#03bcf4";
   document.getElementById("upload").submit();
 })
+
+function rem(){
+  document.getElementById("sta").innerText = "Please wait...";
+  document.getElementById("sta").style.color = "#03bcf4";
+  document.getElementById("remove").submit();
+}
