@@ -119,7 +119,7 @@ def self_ping():
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=self_ping, trigger="interval", minutes=1)  # Adjust to less than 15 minutes
+    scheduler.add_job(func=self_ping, trigger="interval", minutes=10)  # Adjust to less than 15 minutes
     scheduler.start()
 
     try:
