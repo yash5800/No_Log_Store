@@ -67,3 +67,30 @@ def upload_to_github(file_content, file_name):
 
     return True,file_name
 
+def delete_from_github(file_name):
+    base_url = f'https://api.github.com/repos/{username}/{repository}/contents/'
+    headers = {'Authorization': f'token {access_token}'}
+    file_name = file_name.replace(" ", "")
+
+    # Get the file's SHA (necessary for deletion)
+    response = requests.get(base_url + file_name, headers=headers)
+    if response.status_code == 200:
+        sha = response.json().get('sha')
+        delete_url = base_url + file_name
+        payload = {
+            'message': f'Deleting {file_name}',
+            'sha': sha,
+            'branch': 'main'
+        }
+
+        # Attempt to delete the file
+        response = requests.delete(delete_url, headers=headers, data=json.dumps(payload))
+        if response.status_code == 200:
+            print(f"File {file_name} deleted successfully.")
+            return True
+        else:
+            print(f"Failed to delete file {file_name}: {response.status_code} - {response.text}")
+            return False
+    else:
+        print(f"File {file_name} not found or cannot be accessed: {response.status_code} - {response.text}")
+        return False
