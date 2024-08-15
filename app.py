@@ -36,11 +36,8 @@ def check_shit():
     
     return render_template('index.html', user=session['username'], data=data)
 
-@app.route('/upload', methods=['GET', 'POST'])
+ @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    global last_request_time
-    last_request_time = time.time()
-
     if 'username' in session:
         print("Session username:", session['username'])
     else:
@@ -55,6 +52,13 @@ def upload_file():
         if file.filename == '':
             return 'No selected file!'
         
+        # Check the file size (100MB = 100 * 1024 * 1024 bytes)
+        file_size = len(file.read())
+        file.seek(0)  # Reset file pointer after reading size
+
+        if file_size > 100 * 1024 * 1024:
+            return 'File exceeds the maximum allowed size of 100MB!'
+        
         file_content = file.read()
         file_name = file.filename
         success, file_name = upload_to_github(file_content, file_name)
@@ -66,6 +70,7 @@ def upload_file():
             return render_template('index.html', status='uploaded', user=session['username'], data=retrive(session['username']))
         else:
             return render_template('index.html', status='Not uploaded/File Name Already exists', user=session['username'], data=retrive(session['username']))
+
 
 @app.route('/download', methods=['GET', 'POST'])
 def download_file():
