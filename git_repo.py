@@ -27,7 +27,7 @@ def upload_to_github(file_content, file_name):
         print(f"File with the same name exists. Renamed to {file_name}")
     
     # Now proceed with the chunked upload as before
-    CHUNK_SIZE = 1 * 1024 * 1024  # 1 MB chunks
+    CHUNK_SIZE = 5 * 1024 * 1024  # 1 MB chunks
     chunks = [file_content[i:i + CHUNK_SIZE] for i in range(0, len(file_content), CHUNK_SIZE)]
     sha = None
 
@@ -48,7 +48,7 @@ def upload_to_github(file_content, file_name):
 
         while retries < 3:  # Simple retry mechanism
             try:
-                response = requests.put(base_url + file_name, headers=headers, data=payload, timeout=30)
+                response = requests.put(base_url + file_name, headers=headers, data=payload, timeout=100)
                 if response.status_code in [200, 201]:
                     sha = response.json().get('content', {}).get('sha')
                     print(f"Chunk {i+1} uploaded successfully")
@@ -94,3 +94,4 @@ def delete_from_github(file_name):
     else:
         print(f"File {file_name} not found or cannot be accessed: {response.status_code} - {response.text}")
         return False
+
