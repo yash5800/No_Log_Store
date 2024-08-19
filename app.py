@@ -15,6 +15,12 @@ app.secret_key = secrets.token_hex(16)
 def main():
     return render_template('key.html')
 
+
+@app.route('/ads.txt')
+def ads_txt():
+    return send_from_directory('static', 'ads.txt')
+
+
 @app.route('/check_shit', methods=['POST', 'GET'])
 def check_shit():
     session['username'] = request.form['key']
