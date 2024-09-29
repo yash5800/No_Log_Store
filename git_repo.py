@@ -2,7 +2,7 @@ import requests
 import json
 import base64
 import os
-import time
+from datetime import datetime as day
 
 
 # Replace with your GitHub username, repository name, and access token
@@ -22,8 +22,10 @@ def upload_to_github(file_content, file_name):
     
     if response.status_code == 200:
         # File exists, modify the file name by appending a timestamp
-        timestamp = time.strftime("%Y%m%d-%H%M%S")
-        file_name = f"{timestamp}_{file_name}"
+        timestamp = str(day.now()).replace(' ', '-').split('.')[0]
+        str_temp = (file_name).split('.')
+        file_name = f"{str_temp[0]}_{timestamp}_{str_temp[1]}"
+        
         print(f"File with the same name exists. Renamed to {file_name}")
     
     # Now proceed with the chunked upload as before
