@@ -9,7 +9,7 @@
     
     <div class="top">
     <h3 >Welcome {{ user }}!</h3>
-    <img src="{{ url_for('static',filename='images/pic1.jpg')}}">
+    <a href="https://www.linkedin.com/posts/alaparthi-yaswanth-kiran-65aa53272_introducing-image-query-bot-hey-everyone-activity-7220117312924790784-SFLA" target="_blank"><img id="log" src="{{ url_for('static',filename='images/pic1.jpg')}}" ></a>
     </div>
     <center>
 
@@ -99,20 +99,24 @@
         {% if data %}
             {% for url in data %}
                 <div class="url">
-                    <h4>File Name:<br> {{ url }}</h4>
+                    <h4>File Name:<br><p class="truncate"> {{ url }}</p></h4>
                     <form action="/download" method="POST">   
                         <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
                         <button id="down" >Download</button>
                     </form>
-                    <form action="/fuck_off" method="POST">   
-                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
-                        <button onclick="rem()" id="remove" >Remove</button>
+                    <form action="/fuck_off" method="POST" id="remove">   
+                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>     
+                        <button id="delete" onclick="rem()">
+                           <img rel="X" src="{{ url_for('static',filename='images/delete.png')}}">
+                        </button>
                     </form>
                 </div>
+                
             {% endfor %}
         {% else %}
             <p style="color:white;">No links found.</p>
         {% endif %}
+
     </div>
     
     <script src="{{ url_for('static',filename='script.js')}}"></script>
