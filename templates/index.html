@@ -101,12 +101,14 @@
                 <div class="url">
                     <h4>File Name:<br><p class="truncate"> {{ url }}</p></h4>
                     <form action="/download" method="POST">   
-                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>               
+                        <input type="hidden" name="file_name"  value="{{ url }}">               
                         <button id="down" >Download</button>
                     </form>
-                    <form action="/fuck_off" method="POST" id="remove">   
-                        <input type="hidden" name="file_name" id="file_name" value={{ url }}> 
-                           <img id="delete" onclick="rem()" rel="X" src="{{ url_for('static',filename='images/delete.png')}}">
+                    <form action="/fuck_off" Onsubmit="return rem()" method="POST">   
+                        <input type="hidden" name="file_name" value="{{ url }}"> 
+                        <button id="delete">
+                        <img id="delete" rel="X" src="{{ url_for('static',filename='images/delete.png')}}">
+                        </button>
                     </form>
                 </div>
                 
@@ -122,10 +124,6 @@
     <div class="blob"></div>
 
     </center>
-
-    
-
-
 
 </body>
 </html>
