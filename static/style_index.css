@@ -18,7 +18,29 @@ h3{
     padding: 10px;
     font-size: 1.2em;
 }
-img{
+#delete{
+    position: absolute;
+    top: -0.5em;
+    right: -0.5em;
+    background: none;
+    border: none;
+    }
+#delete img{
+    width: 35px;
+    height: 35px;
+    transition: all 0.5s;
+    border-radius: 2rem;
+    border: 1px soild red;
+    transform: scale(1);
+    filter: grayscale(1) ;
+}
+#delete img:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 1px red;
+    filter: grayscale(0) ;
+}
+
+#log{
     position: absolute;
     right: 0;
     margin: 10px;
@@ -30,7 +52,7 @@ img{
                 -4px -4px 10px 1px rgb(255, 255, 255,0.5);
     transition: all 1s;
     }
-img:hover{
+#log:hover{
     width: 55px;
     height: 55px;
     box-shadow: 6px 6px 10px 1px rgb(0, 0, 0, 0.7),
@@ -82,20 +104,23 @@ img:hover{
 
 .urls{
     position: relative;
+    display: flex;
     top: 13em;
     background: transparent;
-    width:400px ;
-    height: 400px;
+    justify-content: space-evenly;
+    width: 100%;
     scrollbar-width: none;
+    flex-wrap: wrap;
+    padding-bottom: 5em;
 }
 .url{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 120px;
-    width: 100%;
-    background: transparent;
-    margin: 30px 20px 0 0 ;
+    width: 300px;
+    background: linear-gradient(45deg,rgb(0, 0, 131),rgb(0, 0, 0));
+    margin: 10px;
     border-radius: 10px;
     padding: 10px;
     box-shadow: inset 3px 3px 10px 1px rgba(255, 255, 255, 0.2),
@@ -109,15 +134,18 @@ img:hover{
     padding: 10px;
     overflow: hidden;
     max-width: 150px;
-    max-height: 100px;
     margin: 10px;
     background: linear-gradient(45deg,rgb(174, 11, 199),rgb(100, 13, 200));
     color: transparent;
     background-clip: text;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-shadow: 0 0 5px rgb(174, 11, 199), 0 0 15px rgb(174, 11, 199);
 }
-.url #down,#remove{
+.url h4 .truncate{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.url #down{
     border: 1px solid white;
     border-radius: 10px;
     padding: 10px 17px;
@@ -130,12 +158,6 @@ img:hover{
     transform: scale(1.1);
     color: rgba(55, 247, 2);
     border: 1px solid rgba(55, 247, 2);
-}
-
-.url #remove:hover{
-    transform: scale(1.1);
-    color: rgb(255, 0, 0);
-    border: 1px solid rgb(255, 0, 0);
 }
 
 .blob{
@@ -270,4 +292,3 @@ img:hover{
         stroke-dashoffset:250;
       }
 }
-
