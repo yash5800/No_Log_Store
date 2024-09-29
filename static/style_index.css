@@ -24,6 +24,8 @@ h3{
     right: -0.5em;
     background: none;
     border: none;
+}
+#delete img{
     width: 35px;
     height: 35px;
     transition: all 0.5s;
