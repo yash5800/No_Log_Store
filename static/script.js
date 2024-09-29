@@ -14,7 +14,6 @@ function rem(){
       console.log("Removing");
     document.getElementById("sta").innerText = "Please wait...";
        document.getElementById("sta").style.color = "#03bcf4";
-       document.getElementById("remove").submit();
   }
   else{
     console.log('no delete')
