@@ -105,10 +105,8 @@
                         <button id="down" >Download</button>
                     </form>
                     <form action="/fuck_off" method="POST" id="remove">   
-                        <input type="hidden" name="file_name" id="file_name" value={{ url }}>     
-                        <button id="delete" onclick="rem()">
-                           <img rel="X" src="{{ url_for('static',filename='images/delete.png')}}">
-                        </button>
+                        <input type="hidden" name="file_name" id="file_name" value={{ url }}> 
+                           <img id="delete" onclick="rem()" rel="X" src="{{ url_for('static',filename='images/delete.png')}}">
                     </form>
                 </div>
                 
