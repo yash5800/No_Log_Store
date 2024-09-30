@@ -14,8 +14,10 @@ function rem(){
       console.log("Removing");
     document.getElementById("sta").innerText = "Please wait...";
        document.getElementById("sta").style.color = "#03bcf4";
+   return true;
   }
   else{
-    console.log('no delete')
+    console.log('no delete');
+    return false;
   }
 }
