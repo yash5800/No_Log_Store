@@ -36,12 +36,12 @@ def insert(user,url):
    
 def retrive(user):
     try:
-        print(user)
-        conn = mysql.connector.connect(
-        host = os.getenv('DB_HOST'),
-        user = os.getenv('DB_USER'),
-        password = os.getenv('DB_PWD'),
-        database = os.getenv('DB_NAME')
+              print(user)
+              conn = mysql.connector.connect(
+              host = os.getenv('DB_HOST'),
+              user = os.getenv('DB_USER'),
+              password = os.getenv('DB_PWD'),
+              database = os.getenv('DB_NAME')
     )
               
               if conn.is_connected():
@@ -127,5 +127,4 @@ def delete_file(user,file_name):
     conn.close()
     
     return True
-
 
