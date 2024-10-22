@@ -36,13 +36,13 @@ def insert(user,url):
    
 def retrive(user):
     try:
-              print(user)
-              conn = mysql.connector.connect(
-                  host='bqtc5ra1i2avhkkayhpf-mysql.services.clever-cloud.com',
-                  user='u3tjxkmmopqlgm1d',
-                  password='DGkarqoI3rPVKmO3C1Z2',
-                  database='bqtc5ra1i2avhkkayhpf'
-              )
+        print(user)
+        conn = mysql.connector.connect(
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PWD'),
+        database = os.getenv('DB_NAME')
+    )
               
               if conn.is_connected():
                       print("Connection to MySQL DB successful")
@@ -82,10 +82,10 @@ def retrive(user):
    
 def delete(user):
     conn = mysql.connector.connect(
-        host='bqtc5ra1i2avhkkayhpf-mysql.services.clever-cloud.com',
-        user='u3tjxkmmopqlgm1d',
-        password='DGkarqoI3rPVKmO3C1Z2',
-        database='bqtc5ra1i2avhkkayhpf'
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PWD'),
+        database = os.getenv('DB_NAME')
     )
     cursor = conn.cursor()
     
@@ -104,10 +104,10 @@ def delete(user):
 
 def delete_file(user,file_name):
     conn = mysql.connector.connect(
-        host='bqtc5ra1i2avhkkayhpf-mysql.services.clever-cloud.com',
-        user='u3tjxkmmopqlgm1d',
-        password='DGkarqoI3rPVKmO3C1Z2',
-        database='bqtc5ra1i2avhkkayhpf'
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PWD'),
+        database = os.getenv('DB_NAME')
     )
     cursor = conn.cursor()
     
