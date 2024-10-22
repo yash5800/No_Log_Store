@@ -88,6 +88,27 @@ def download_file():
         print(f"Error fetching file: {e}")
         return render_template('index.html', status='Unable to Download', user=session['username'], data=retrive(session['username']))
 
+@app.route('/view', methods=['GET', 'POST'])
+def view():
+    file_name = request.form["file_name"]
+    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+    
+    response = requests.get(file_url)
+
+    if response.status_code == 200:
+        # Save the PDF temporarily
+        temp_pdf_path = 'temp_pdf.pdf'
+        with open(temp_pdf_path, 'wb') as f:
+            f.write(response.content)
+        return render_template('view_pdf.html', pdf_path=temp_pdf_path)
+    else:
+        return "Failed to retrieve the PDF."
+
+@app.route('/display/<path:pdf_path>')
+def display_pdf(pdf_path):
+    return send_file(pdf_path, as_attachment=False)
+
+
 @app.route('/fuck_off', methods=['GET', 'POST'])
 def fuck_off():
     file_name = request.form["file_name"]
