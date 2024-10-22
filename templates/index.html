@@ -100,10 +100,18 @@
             {% for url in data %}
                 <div class="url">
                     <h4>File Name:<br><p class="truncate"> {{ url }}</p></h4>
-                    <form action="/download" method="POST">   
-                        <input type="hidden" name="file_name"  value="{{ url }}">               
-                        <button id="down" >Download</button>
-                    </form>
+                    <div class="b_v">
+                        <form action="/download" method="POST">   
+                            <input type="hidden" name="file_name"  value="{{ url }}">               
+                            <button id="down" >Download</button>
+                        </form>
+                        {% if ".pdf" in url%}
+                            <form action="/view" method="POST">   
+                                <input type="hidden" name="file_name"  value="{{ url }}">               
+                                <button id="down" >View</button>
+                            </form>
+                        {% endif %}
+                    </div>
                     <form action="/fuck_off" Onsubmit="return rem()" method="POST">   
                         <input type="hidden" name="file_name" value="{{ url }}"> 
                         <button id="delete">
