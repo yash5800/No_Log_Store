@@ -1,0 +1,24 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+#pdf-container {
+  width: 100%;
+  height: 100%;
+}
+#print-btn {
+  margin: 13px;
+  padding: 14px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  border-radius: 2rem;
+  right: 1em;
+  top: -5px;
+
+}
