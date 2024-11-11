@@ -69,24 +69,56 @@ def upload_file():
 
 @app.route('/download', methods=['GET', 'POST'])
 def download_file():
-    file_name = request.form["file_name"]
-    print("entered to download file:", file_name)
-    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
-    try:
-        response = requests.get(file_url,headers={"Authorization": f"Bearer {os.getenv('MY_API')}"})
-        response.raise_for_status()
-            
-        filename = os.path.basename(file_url)
-        mime_type, _ = mimetypes.guess_type(filename)
-        if mime_type is None:
-            mime_type = 'application/octet-stream'
-            
-        file_content = BytesIO(response.content)
-        return send_file(file_content, mimetype=mime_type, as_attachment=True, download_name=filename)
-        
-    except requests.RequestException as e:
-        print(f"Error fetching file: {e}")
-        return render_template('index.html', status='Unable to Download', user=session['username'], data=retrive(session['username']))
+    if request.method == 'POST':
+        file_name = request.form.get("file_name")  # Safely get file name
+        if not file_name:
+            return render_template('index.html', status='No file name provided', user=session.get('username'), data=retrive(session.get('username')))
+
+        print("Entered to download file:", file_name)
+        file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+
+        try:
+            # Headers to force a fresh request (disable caching)
+            headers = {
+                'Cache-Control': 'no-cache',  # Prevent cached responses
+                'Pragma': 'no-cache',         # Prevent cached responses
+            }
+
+            # Make the request to GitHub raw content URL without the Authorization header (for public files)
+            response = requests.get(file_url, headers=headers)
+
+            # Check for any errors in the response
+            response.raise_for_status()  # Will raise an HTTPError for 4xx/5xx responses
+
+            # Debugging: Print the final URL and headers
+            print(f"Response URL: {response.url}")
+            print(f"Response Status Code: {response.status_code}")
+            print(f"Response Headers: {response.headers}")
+
+            # If the request was successful, process the file
+            filename = os.path.basename(file_url)  # Extract file name from URL
+            mime_type, _ = mimetypes.guess_type(filename)  # Guess MIME type based on file extension
+
+            if mime_type is None:
+                mime_type = 'application/octet-stream'  # Default MIME type for unknown files
+
+            # Create an in-memory file
+            file_content = BytesIO(response.content)
+
+            # Return the file for download
+            return send_file(file_content, mimetype=mime_type, as_attachment=True, download_name=filename)
+
+        except requests.exceptions.RequestException as e:
+            # Catch all request-related errors and print the response for debugging
+            print(f"Error fetching file: {e}")
+            if response:
+                print(f"Response Status Code: {response.status_code}")
+                print(f"Response Text: {response.text}")  # Print the content of the response for further inspection
+            return render_template('index.html', status=f'Error: {e}', user=session.get('username'), data=retrive(session.get('username')))
+
+    return render_template('index.html', user=session.get('username'), data=retrive(session.get('username')))
+
+    
 
 @app.route('/view', methods=['GET', 'POST'])
 def view():
