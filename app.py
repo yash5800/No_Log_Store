@@ -7,6 +7,8 @@ import os
 import time
 import requests
 import secrets
+username = os.getenv('USER')
+repository = os.getenv('REPO')
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -66,7 +68,7 @@ def upload_file():
 def download_file():
     file_name = request.form["file_name"]
     print("entered to download file:", file_name)
-    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+    file_url = f"https://raw.githubusercontent.com/{username}/{repository}/master/{file_name}"
     try:
         response = requests.get(file_url)
         response.raise_for_status()
@@ -86,7 +88,7 @@ def download_file():
 @app.route('/view', methods=['GET', 'POST'])
 def view():
     file_name = request.form["file_name"]
-    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+    file_url = f"https://raw.githubusercontent.com/{username}/{repository}/master/{file_name}"
     
     response = requests.get(file_url)
 
