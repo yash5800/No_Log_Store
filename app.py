@@ -73,7 +73,7 @@ def download_file():
     print("entered to download file:", file_name)
     file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
     try:
-        response = requests.get(file_url)
+        response = requests.get(file_url,headers={"Authorization": f"Bearer {os.getenv('MY_API')}")
         response.raise_for_status()
             
         filename = os.path.basename(file_url)
