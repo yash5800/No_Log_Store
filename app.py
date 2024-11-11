@@ -6,6 +6,8 @@ import mimetypes
 import os
 import requests
 import secrets
+import aiohttp
+import asyncio
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -67,56 +69,51 @@ def upload_file():
         else:
             return render_template('index.html', status='Not uploaded/File Name Already exists', user=session['username'], data=retrive(session['username']))
 
+
+async def download_file_async(file_name):
+    file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(file_url) as response:
+                if response.status == 200:
+                    # Read content of the file
+                    content = await response.read()
+
+                    # Determine MIME type
+                    filename = os.path.basename(file_url)
+                    mime_type, _ = mimetypes.guess_type(filename)
+                    if mime_type is None:
+                        mime_type = 'application/octet-stream'
+
+                    # Return file content as BytesIO
+                    return BytesIO(content), mime_type, filename
+                else:
+                    return None, None, None
+    except Exception as e:
+        print(f"Error downloading {file_name}: {e}")
+        return None, None, None
+
+# Async route for downloading files
 @app.route('/download', methods=['GET', 'POST'])
-def download_file():
+async def download_files():
     if request.method == 'POST':
-        file_name = request.form.get("file_name")  # Safely get file name
+        file_name = request.form.get("file_name")
         if not file_name:
             return render_template('index.html', status='No file name provided', user=session.get('username'), data=retrive(session.get('username')))
-
+        
         print("Entered to download file:", file_name)
-        file_url = f"https://raw.githubusercontent.com/yash5800/ND_store/master/{file_name}"
-
-        try:
-            # Headers to force a fresh request (disable caching)
-            headers = {
-                'Cache-Control': 'no-cache',  # Prevent cached responses
-                'Pragma': 'no-cache',         # Prevent cached responses
-            }
-
-            # Make the request to GitHub raw content URL without the Authorization header (for public files)
-            response = requests.get(file_url, headers=headers)
-
-            # Check for any errors in the response
-            response.raise_for_status()  # Will raise an HTTPError for 4xx/5xx responses
-
-            # Debugging: Print the final URL and headers
-            print(f"Response URL: {response.url}")
-            print(f"Response Status Code: {response.status_code}")
-            print(f"Response Headers: {response.headers}")
-
-            # If the request was successful, process the file
-            filename = os.path.basename(file_url)  # Extract file name from URL
-            mime_type, _ = mimetypes.guess_type(filename)  # Guess MIME type based on file extension
-
-            if mime_type is None:
-                mime_type = 'application/octet-stream'  # Default MIME type for unknown files
-
-            # Create an in-memory file
-            file_content = BytesIO(response.content)
-
-            # Return the file for download
+        
+        # Call the async function to download the file
+        file_content, mime_type, filename = await download_file_async(file_name)
+        
+        if file_content:
             return send_file(file_content, mimetype=mime_type, as_attachment=True, download_name=filename)
-
-        except requests.exceptions.RequestException as e:
-            # Catch all request-related errors and print the response for debugging
-            print(f"Error fetching file: {e}")
-            if response:
-                print(f"Response Status Code: {response.status_code}")
-                print(f"Response Text: {response.text}")  # Print the content of the response for further inspection
-            return render_template('index.html', status=f'Error: {e}', user=session.get('username'), data=retrive(session.get('username')))
-
+        else:
+            return render_template('index.html', status=f"Error downloading {file_name}", user=session.get('username'), data=retrive(session.get('username')))
+    
     return render_template('index.html', user=session.get('username'), data=retrive(session.get('username')))
+
+
 
     
 
