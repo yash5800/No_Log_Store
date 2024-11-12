@@ -1,26 +1,42 @@
-name: Run Python Script
+name: Run Flask App
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests targeting 'main' branch
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout the code
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
+    # Step 2: Set up Python
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.9'  # Specify the Python version
 
+    # Step 3: Install dependencies from requirements.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Run Python script
-      env:
-        MY_API: ${{ secrets.MY_API }}
+
+    # Step 4: Run Flask App (in this case we run it using a test command)
+    - name: Run Flask App
       run: |
-        python git_repo.py
+        export FLASK_APP=app.py
+        export FLASK_ENV=development
+        flask run --host=0.0.0.0 --port=5000
+
+    # Step 5: Verify Flask is running (optional)
+    - name: Verify Flask App is running
+      run: |
+        curl --silent --fail http://localhost:5000
