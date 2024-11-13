@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, send_file
+from flask import Flask, render_template, request, session, send_file,redirect
 from git_repo import *
 from sql_operations import *
 from io import BytesIO
@@ -16,7 +16,8 @@ app.secret_key = secrets.token_hex(16)
 
 @app.route('/')
 def main():
-    return render_template('key.html')
+   # return render_template('key.html')
+   return redirect('https://easy-store-au5b.onrender.com/')
 
 @app.route('/check_shit', methods=['POST', 'GET'])
 def check_shit():
