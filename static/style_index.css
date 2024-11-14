@@ -313,3 +313,9 @@ h3{
 .void_space h2{
     color: rgb(235, 235, 2);
 }
+
+#sta{
+    max-width: 300px;
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+}
