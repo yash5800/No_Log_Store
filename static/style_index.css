@@ -295,3 +295,21 @@ h3{
         stroke-dashoffset:250;
       }
 }
+
+.void_space{
+    margin: 10px;
+    padding: 10px;
+    color: aliceblue;
+    position: absolute;
+    right: 0;
+    border-radius: 2rem;
+    background: rgb(0, 33, 17);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    line-height: 1.65rem;
+    z-index: -10;
+}
+
+.void_space h2{
+    color: rgb(235, 235, 2);
+}
