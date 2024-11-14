@@ -81,6 +81,20 @@ def upload_file():
 
         if file.filename == '':
             return 'No selected file!'
+        
+        file.seek(0, os.SEEK_END)
+        file_size = file.tell() / (1024 * 1024)  # Convert size to MB
+        file.seek(0)  # Reset file pointer after checking size
+
+        # Check remaining space
+        if session['space']['remaining_mb'] < file_size:
+            return render_template(
+                'index.html',
+                status='Sorry 😞, Not enough space on the server.',
+                user=session['username'],
+                data=retrive(session['username']),
+                space=session['space']
+            )
 
         # Check the file size
         file_content = file.read()
@@ -96,6 +110,9 @@ def upload_file():
         except dropbox.exceptions.ApiError as e:
             print(f"Dropbox API error: {e}")
             return render_template('index.html', status='Upload failed', user=session['username'], data=retrive(session['username']),space=session['space'])
+
+
+
 
 
 @app.route('/download', methods=['GET', 'POST'])
