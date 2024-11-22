@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, send_file
+from flask import Flask, render_template, request, session, send_file,redirect
 from sql_operations import *
 from io import BytesIO
 import mimetypes
@@ -50,7 +50,8 @@ def get_remaining_storage():
 
 @app.route('/')
 def main():
-    return render_template('key.html')
+    return redirect("https://github.com/yash5800/CN")
+    #return render_template('key.html')
 
 @app.route('/check_shit', methods=['POST', 'GET'])
 def check_shit():
