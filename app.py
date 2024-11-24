@@ -50,8 +50,8 @@ def get_remaining_storage():
 
 @app.route('/')
 def main():
-    return redirect("https://github.com/yash5800/CN")
-    #return render_template('key.html')
+    #return redirect("https://github.com/yash5800/CN")
+    return render_template('key.html')
 
 @app.route('/check_shit', methods=['POST', 'GET'])
 def check_shit():
